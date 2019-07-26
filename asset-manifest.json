@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/cenxky/sudoku-react/static/css/main.73dbcd06.chunk.css",
-    "main.js": "/cenxky/sudoku-react/static/js/main.6253219e.chunk.js",
-    "main.js.map": "/cenxky/sudoku-react/static/js/main.6253219e.chunk.js.map",
-    "runtime~main.js": "/cenxky/sudoku-react/static/js/runtime~main.dd7ac4f5.js",
-    "runtime~main.js.map": "/cenxky/sudoku-react/static/js/runtime~main.dd7ac4f5.js.map",
-    "static/css/2.cb759328.chunk.css": "/cenxky/sudoku-react/static/css/2.cb759328.chunk.css",
-    "static/js/2.3aac42b5.chunk.js": "/cenxky/sudoku-react/static/js/2.3aac42b5.chunk.js",
-    "static/js/2.3aac42b5.chunk.js.map": "/cenxky/sudoku-react/static/js/2.3aac42b5.chunk.js.map",
-    "index.html": "/cenxky/sudoku-react/index.html",
-    "precache-manifest.2fc357fe6fabb812b8799486f857387b.js": "/cenxky/sudoku-react/precache-manifest.2fc357fe6fabb812b8799486f857387b.js",
-    "service-worker.js": "/cenxky/sudoku-react/service-worker.js",
-    "static/css/2.cb759328.chunk.css.map": "/cenxky/sudoku-react/static/css/2.cb759328.chunk.css.map",
-    "static/css/main.73dbcd06.chunk.css.map": "/cenxky/sudoku-react/static/css/main.73dbcd06.chunk.css.map"
+    "main.css": "/sudoku-react/static/css/main.73dbcd06.chunk.css",
+    "main.js": "/sudoku-react/static/js/main.26c2e411.chunk.js",
+    "main.js.map": "/sudoku-react/static/js/main.26c2e411.chunk.js.map",
+    "runtime~main.js": "/sudoku-react/static/js/runtime~main.e1ff4c15.js",
+    "runtime~main.js.map": "/sudoku-react/static/js/runtime~main.e1ff4c15.js.map",
+    "static/css/2.cb759328.chunk.css": "/sudoku-react/static/css/2.cb759328.chunk.css",
+    "static/js/2.ef2bdd82.chunk.js": "/sudoku-react/static/js/2.ef2bdd82.chunk.js",
+    "static/js/2.ef2bdd82.chunk.js.map": "/sudoku-react/static/js/2.ef2bdd82.chunk.js.map",
+    "index.html": "/sudoku-react/index.html",
+    "precache-manifest.2ba2dbc36ea3724efdbc78b4db223306.js": "/sudoku-react/precache-manifest.2ba2dbc36ea3724efdbc78b4db223306.js",
+    "service-worker.js": "/sudoku-react/service-worker.js",
+    "static/css/2.cb759328.chunk.css.map": "/sudoku-react/static/css/2.cb759328.chunk.css.map",
+    "static/css/main.73dbcd06.chunk.css.map": "/sudoku-react/static/css/main.73dbcd06.chunk.css.map"
   }
 }
