@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.73dbcd06.chunk.css",
-    "main.js": "/static/js/main.721dec27.chunk.js",
-    "main.js.map": "/static/js/main.721dec27.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/css/2.cb759328.chunk.css": "/static/css/2.cb759328.chunk.css",
-    "static/js/2.61a6c648.chunk.js": "/static/js/2.61a6c648.chunk.js",
-    "static/js/2.61a6c648.chunk.js.map": "/static/js/2.61a6c648.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.d0647445b9078303f5dffe1d701ae796.js": "/precache-manifest.d0647445b9078303f5dffe1d701ae796.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.cb759328.chunk.css.map": "/static/css/2.cb759328.chunk.css.map",
-    "static/css/main.73dbcd06.chunk.css.map": "/static/css/main.73dbcd06.chunk.css.map"
+    "main.css": "/cenxky/sudoku-react/static/css/main.73dbcd06.chunk.css",
+    "main.js": "/cenxky/sudoku-react/static/js/main.6253219e.chunk.js",
+    "main.js.map": "/cenxky/sudoku-react/static/js/main.6253219e.chunk.js.map",
+    "runtime~main.js": "/cenxky/sudoku-react/static/js/runtime~main.dd7ac4f5.js",
+    "runtime~main.js.map": "/cenxky/sudoku-react/static/js/runtime~main.dd7ac4f5.js.map",
+    "static/css/2.cb759328.chunk.css": "/cenxky/sudoku-react/static/css/2.cb759328.chunk.css",
+    "static/js/2.3aac42b5.chunk.js": "/cenxky/sudoku-react/static/js/2.3aac42b5.chunk.js",
+    "static/js/2.3aac42b5.chunk.js.map": "/cenxky/sudoku-react/static/js/2.3aac42b5.chunk.js.map",
+    "index.html": "/cenxky/sudoku-react/index.html",
+    "precache-manifest.2fc357fe6fabb812b8799486f857387b.js": "/cenxky/sudoku-react/precache-manifest.2fc357fe6fabb812b8799486f857387b.js",
+    "service-worker.js": "/cenxky/sudoku-react/service-worker.js",
+    "static/css/2.cb759328.chunk.css.map": "/cenxky/sudoku-react/static/css/2.cb759328.chunk.css.map",
+    "static/css/main.73dbcd06.chunk.css.map": "/cenxky/sudoku-react/static/css/main.73dbcd06.chunk.css.map"
   }
 }
