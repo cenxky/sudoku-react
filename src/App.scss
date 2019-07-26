@@ -1,0 +1,73 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sudoku-container {
+  padding-top: 40px;
+  height: 100vh;
+}
+
+.sudoku-table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  border: 3px solid black;
+  td, th {
+    border: 1px solid #cad8ef;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    input {
+      padding: 0 15px;
+      width: 60px;
+      height: 100%;
+      border: 0;
+      outline: 0;
+      font-size: 40px;
+      background: inherit;
+    }
+  }
+  tr.block-boder:not(:last-child) {
+    border-bottom: 3px solid black;
+  }
+  td.block-boder:not(:last-child) {
+    border-right: 3px solid black;
+  }
+  td.solved {
+    color: #467fcf;
+  }
+}
+
+.sudoku-actions {
+  display: flex;
+  justify-content: center;
+}
