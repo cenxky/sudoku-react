@@ -1,7 +1,7 @@
 {
   "name": "sudoku-react",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://cenxky.github.io/sudoku-react",
   "dependencies": {
     "@types/classnames": "^2.2.9",
