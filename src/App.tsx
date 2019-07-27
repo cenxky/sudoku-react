@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import cx from 'classnames'
-import Sudoku from './lib/sudoku'
+import React, { useState, useEffect } from "react"
+import cx from "classnames"
+import Sudoku from "./lib/sudoku"
 
-import './App.scss'
-import 'antd/dist/antd.css'
-import { Layout, Button, Modal, message } from 'antd'
+import "./App.scss"
+import "antd/dist/antd.css"
+import { Layout, Button, Modal, message } from "antd"
 
 // const sudoku = new Sudoku()
-// const sudoku = new Sudoku([
-//   [4, 0, 0, 0, 0, 0, 8, 0, 5],
-//   [0, 3, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 7, 0, 0, 0, 0, 0],
-//   [0, 2, 0, 0, 0, 0, 0, 6, 0],
-//   [0, 0, 0, 0, 8, 0, 4, 0, 0],
-//   [0, 0, 0, 0, 1, 0, 0, 0, 0],
-//   [0, 0, 0, 6, 0, 3, 0, 7, 0],
-//   [5, 0, 0, 2, 0, 0, 0, 0, 0],
-//   [1, 0, 4, 0, 0, 0, 0, 0, 0]
-// ])
-
 const sudoku = new Sudoku([
-  [0, 3, 0, 0, 0, 0, 0, 0, 1],
-  [0, 0, 0, 5, 0, 0, 0, 0, 4],
-  [0, 0, 5, 0, 0, 7, 0, 0, 0],
-  [0, 0, 0, 0, 3, 0, 0, 0, 9],
-  [6, 0, 0, 0, 0, 0, 0, 0, 0],
-  [7, 0, 0, 0, 0, 0, 0, 4, 0],
-  [0, 9, 0, 0, 4, 0, 0, 0, 0],
-  [0, 5, 0, 0, 0, 0, 7, 0, 0],
-  [0, 0, 0, 0, 0, 8, 0, 6, 0]
+  [4, 0, 0, 0, 0, 0, 8, 0, 5],
+  [0, 3, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 0, 0, 0, 0, 0],
+  [0, 2, 0, 0, 0, 0, 0, 6, 0],
+  [0, 0, 0, 0, 8, 0, 4, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 6, 0, 3, 0, 7, 0],
+  [5, 0, 0, 2, 0, 0, 0, 0, 0],
+  [1, 0, 4, 0, 0, 0, 0, 0, 0]
 ])
+
+// const sudoku = new Sudoku([
+//   [0, 3, 0, 0, 0, 0, 0, 0, 1],
+//   [0, 0, 0, 5, 0, 0, 0, 0, 4],
+//   [0, 0, 5, 0, 0, 7, 0, 0, 0],
+//   [0, 0, 0, 0, 3, 0, 0, 0, 9],
+//   [6, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [7, 0, 0, 0, 0, 0, 0, 4, 0],
+//   [0, 9, 0, 0, 4, 0, 0, 0, 0],
+//   [0, 5, 0, 0, 0, 0, 7, 0, 0],
+//   [0, 0, 0, 0, 0, 8, 0, 6, 0]
+// ])
 
 type GridDataType = Array<number[]>
 
@@ -39,7 +39,9 @@ export default function App() {
   const [solving, setSolving] = useState<boolean>(false)
 
   useEffect(() => {
-    if (solving) { setTimeout(solveSudoku, 300) }
+    if (solving) {
+      setTimeout(solveSudoku, 300)
+    }
   }, [solving])
 
   const setValue = (x: number, y: number, value: string) => {
@@ -63,17 +65,17 @@ export default function App() {
   const solveSudoku = () => {
     setSolvedCells(sudoku.emptyCells())
 
-    console.time('Sudoku runs')
+    console.time("Sudoku runs")
     const sudokuSolvedStatus = sudoku.solve()
     setSolving(false)
-    console.timeEnd('Sudoku runs')
+    console.timeEnd("Sudoku runs")
 
     if (sudokuSolvedStatus) {
       setGridData([...sudoku.grid])
     } else {
       Modal.error({
-        title: 'Sudoku',
-        content: 'Sorry, this sudoku has no solution!'
+        title: "Sudoku",
+        content: "Sorry, this sudoku has no solution!"
       })
     }
   }
@@ -94,14 +96,18 @@ export default function App() {
                 {gridData.map((row, y) => (
                   <tr
                     key={y}
-                    className={cx({ "block-boder": (y + 1) % 3 === 0 })}
+                    className={cx({
+                      "block-boder": (y + 1) % 3 === 0
+                    })}
                   >
                     {row.map((value, x) => (
                       <td
                         key={x}
                         className={cx({
                           "block-boder": (x + 1) % 3 === 0,
-                          "solved": solvedCells.some(arr => arr.join() === [x, y].join())
+                          solved: solvedCells.some(
+                            arr => arr.join() === [x, y].join()
+                          )
                         })}
                       >
                         <input
@@ -126,7 +132,9 @@ export default function App() {
                 >
                   {solving ? "Solving" : "Solve Now!"}
                 </Button>
-                <Button size="large" onClick={resetSudoku} disabled={solving}>Clear All</Button>
+                <Button size="large" onClick={resetSudoku} disabled={solving}>
+                  Clear All
+                </Button>
               </Button.Group>
             </div>
           </div>
