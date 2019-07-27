@@ -67,8 +67,9 @@ export default function App() {
 
     console.time("Sudoku runs")
     const sudokuSolvedStatus = sudoku.solve()
-    setSolving(false)
     console.timeEnd("Sudoku runs")
+
+    setSolving(false)
 
     if (sudokuSolvedStatus) {
       setGridData([...sudoku.grid])
