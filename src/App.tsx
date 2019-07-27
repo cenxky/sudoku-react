@@ -7,29 +7,29 @@ import 'antd/dist/antd.css'
 import { Layout, Button, Modal, message } from 'antd'
 
 // const sudoku = new Sudoku()
-const sudoku = new Sudoku([
-  [4, 0, 0, 0, 0, 0, 8, 0, 5],
-  [0, 3, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 7, 0, 0, 0, 0, 0],
-  [0, 2, 0, 0, 0, 0, 0, 6, 0],
-  [0, 0, 0, 0, 8, 0, 4, 0, 0],
-  [0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 6, 0, 3, 0, 7, 0],
-  [5, 0, 0, 2, 0, 0, 0, 0, 0],
-  [1, 0, 4, 0, 0, 0, 0, 0, 0]
-])
-
 // const sudoku = new Sudoku([
-//   [0, 3, 0, 0, 0, 0, 0, 0, 1],
-//   [0, 0, 0, 5, 0, 0, 0, 0, 4],
-//   [0, 0, 5, 0, 0, 7, 0, 0, 0],
-//   [0, 0, 0, 0, 3, 0, 0, 0, 9],
-//   [6, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [7, 0, 0, 0, 0, 0, 0, 4, 0],
-//   [0, 9, 0, 0, 4, 0, 0, 0, 0],
-//   [0, 5, 0, 0, 0, 0, 7, 0, 0],
-//   [0, 0, 0, 0, 0, 8, 0, 6, 0]
+//   [4, 0, 0, 0, 0, 0, 8, 0, 5],
+//   [0, 3, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 7, 0, 0, 0, 0, 0],
+//   [0, 2, 0, 0, 0, 0, 0, 6, 0],
+//   [0, 0, 0, 0, 8, 0, 4, 0, 0],
+//   [0, 0, 0, 0, 1, 0, 0, 0, 0],
+//   [0, 0, 0, 6, 0, 3, 0, 7, 0],
+//   [5, 0, 0, 2, 0, 0, 0, 0, 0],
+//   [1, 0, 4, 0, 0, 0, 0, 0, 0]
 // ])
+
+const sudoku = new Sudoku([
+  [0, 3, 0, 0, 0, 0, 0, 0, 1],
+  [0, 0, 0, 5, 0, 0, 0, 0, 4],
+  [0, 0, 5, 0, 0, 7, 0, 0, 0],
+  [0, 0, 0, 0, 3, 0, 0, 0, 9],
+  [6, 0, 0, 0, 0, 0, 0, 0, 0],
+  [7, 0, 0, 0, 0, 0, 0, 4, 0],
+  [0, 9, 0, 0, 4, 0, 0, 0, 0],
+  [0, 5, 0, 0, 0, 0, 7, 0, 0],
+  [0, 0, 0, 0, 0, 8, 0, 6, 0]
+])
 
 type GridDataType = Array<number[]>
 
@@ -39,7 +39,7 @@ export default function App() {
   const [solving, setSolving] = useState<boolean>(false)
 
   useEffect(() => {
-    if (solving) { solveSudoku() }
+    if (solving) { setTimeout(solveSudoku, 300) }
   }, [solving])
 
   const setValue = (x: number, y: number, value: string) => {
@@ -108,6 +108,7 @@ export default function App() {
                           type="text"
                           value={value || ""}
                           onChange={e => setValue(x, y, e.target.value)}
+                          readOnly={solving}
                         />
                       </td>
                     ))}
@@ -117,8 +118,15 @@ export default function App() {
             </table>
             <div className="sudoku-actions">
               <Button.Group>
-                <Button type="primary" size="large" onClick={() => setSolving(true)} loading={solving}>Solve Now!</Button>
-                <Button type="default" size="large" onClick={resetSudoku}>Clear All</Button>
+                <Button
+                  type="primary"
+                  size="large"
+                  onClick={() => setSolving(true)}
+                  loading={solving}
+                >
+                  {solving ? "Solving" : "Solve Now!"}
+                </Button>
+                <Button size="large" onClick={resetSudoku} disabled={solving}>Clear All</Button>
               </Button.Group>
             </div>
           </div>
