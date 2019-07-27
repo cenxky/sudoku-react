@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import Sudoku from './lib/sudoku'
 
@@ -8,22 +8,39 @@ import { Layout, Button, Modal, message } from 'antd'
 
 // const sudoku = new Sudoku()
 const sudoku = new Sudoku([
-  [5, 1, 9, 0, 0, 0, 4, 3, 0],
-  [7, 2, 4, 9, 0, 0, 0, 0, 0],
-  [0, 0, 0, 2, 5, 4, 9, 0, 0],
-  [1, 7, 0, 0, 4, 0, 2, 0, 6],
-  [0, 0, 0, 0, 9, 0, 0, 0, 3],
-  [0, 0, 3, 0, 0, 6, 0, 8, 0],
-  [0, 0, 1, 4, 7, 0, 0, 6, 0],
-  [0, 0, 0, 5, 0, 8, 1, 2, 0],
-  [0, 9, 0, 0, 6, 0, 3, 0, 4]
+  [4, 0, 0, 0, 0, 0, 8, 0, 5],
+  [0, 3, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 7, 0, 0, 0, 0, 0],
+  [0, 2, 0, 0, 0, 0, 0, 6, 0],
+  [0, 0, 0, 0, 8, 0, 4, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 6, 0, 3, 0, 7, 0],
+  [5, 0, 0, 2, 0, 0, 0, 0, 0],
+  [1, 0, 4, 0, 0, 0, 0, 0, 0]
 ])
+
+// const sudoku = new Sudoku([
+//   [0, 3, 0, 0, 0, 0, 0, 0, 1],
+//   [0, 0, 0, 5, 0, 0, 0, 0, 4],
+//   [0, 0, 5, 0, 0, 7, 0, 0, 0],
+//   [0, 0, 0, 0, 3, 0, 0, 0, 9],
+//   [6, 0, 0, 0, 0, 0, 0, 0, 0],
+//   [7, 0, 0, 0, 0, 0, 0, 4, 0],
+//   [0, 9, 0, 0, 4, 0, 0, 0, 0],
+//   [0, 5, 0, 0, 0, 0, 7, 0, 0],
+//   [0, 0, 0, 0, 0, 8, 0, 6, 0]
+// ])
 
 type GridDataType = Array<number[]>
 
 export default function App() {
   const [gridData, setGridData] = useState<GridDataType>(sudoku.grid)
   const [solvedCells, setSolvedCells] = useState<GridDataType>([])
+  const [solving, setSolving] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (solving) { solveSudoku() }
+  }, [solving])
 
   const setValue = (x: number, y: number, value: string) => {
     const parsedValue = parseInt(value)
@@ -46,18 +63,19 @@ export default function App() {
   const solveSudoku = () => {
     setSolvedCells(sudoku.emptyCells())
 
-    console.time('Sudoku runs');
+    console.time('Sudoku runs')
+    const sudokuSolvedStatus = sudoku.solve()
+    setSolving(false)
+    console.timeEnd('Sudoku runs')
 
-    if (sudoku.solve()) {
+    if (sudokuSolvedStatus) {
       setGridData([...sudoku.grid])
     } else {
       Modal.error({
         title: 'Sudoku',
         content: 'Sorry, this sudoku has no solution!'
-      });
+      })
     }
-
-    console.timeEnd('Sudoku runs');
   }
 
   const resetSudoku = () => {
@@ -99,7 +117,7 @@ export default function App() {
             </table>
             <div className="sudoku-actions">
               <Button.Group>
-                <Button type="primary" size="large" onClick={solveSudoku}>Solve Now!</Button>
+                <Button type="primary" size="large" onClick={() => setSolving(true)} loading={solving}>Solve Now!</Button>
                 <Button type="default" size="large" onClick={resetSudoku}>Clear All</Button>
               </Button.Group>
             </div>

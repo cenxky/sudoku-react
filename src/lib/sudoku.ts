@@ -47,34 +47,42 @@ export default class Sudoku {
   }
 
   allowedNumbersInRow(y: number) {
-    return NUMBERS.filter(num => !this.row(y).includes(num))
+    const row = this.row(y)
+    return NUMBERS.filter(num => !row.includes(num))
   }
 
   allowedNumbersInColumn(x: number) {
-    return NUMBERS.filter(num => !this.column(x).includes(num))
+    const column = this.column(x)
+    return NUMBERS.filter(num => !column.includes(num))
   }
 
   allowedNumbersInBlock(x: number, y: number) {
     const bx = Math.floor(x / 3) * 3
     const by = Math.floor(y / 3) * 3
 
-    let numbers_in_block: number[] = []
+    let numbersInBlock: number[] = []
 
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
-        numbers_in_block.push(this.get(bx + i, by + j))
+        numbersInBlock.push(this.get(bx + i, by + j))
       }
     }
 
-    return NUMBERS.filter(num => !numbers_in_block.includes(num))
+    return NUMBERS.filter(num => !numbersInBlock.includes(num))
   }
 
   allowedNumbers(x: number, y: number) {
-    return this.allowedNumbersInBlock(x, y)
-      .filter(num => (
-        this.allowedNumbersInRow(y).includes(num) &&
-        this.allowedNumbersInColumn(x).includes(num)
+    const numbersInBlock = this.allowedNumbersInBlock(x, y)
+
+    if (numbersInBlock.length > 1) {
+      const numbersInRow = this.allowedNumbersInRow(y)
+      const numbersInColumn = this.allowedNumbersInColumn(x)
+      return numbersInBlock.filter(num => (
+        numbersInRow.includes(num) && numbersInColumn.includes(num)
       ))
+    } else {
+      return numbersInBlock
+    }
   }
 
   emptyCells() {
@@ -89,46 +97,52 @@ export default class Sudoku {
     return cells
   }
 
+  anyEmptyCell(allowedNumbersLength = SIZE + 1) {
+    let cell: number[] = []
+
+    this.emptyCells().some((emptyCell: number[]) => {
+      const [x, y] = emptyCell
+      const length = this.allowedNumbers(x, y).length
+
+      if (length < allowedNumbersLength) {
+        cell = emptyCell
+        allowedNumbersLength = length
+      }
+
+      return length === 1
+    })
+
+    return cell
+  }
+
+  isSolved() {
+    return !this.anyEmptyCell().length
+  }
+
   solve() {
-    // // row
-    // for (var y = 0; y < 9; y++) {
-    //   var emptyCellsInRow: Array<number[]> = []
-    //   this.row(y).forEach((value: number, x: number) => {
-    //     !value && emptyCellsInRow.push([x, y])
-    //   })
-
-    //   const valuesInEmptyCells = emptyCellsInRow.map((cell: number[]) => (
-    //     this.allowedNumbers(cell[0], cell[1])
-    //   ))
-    // }
-
-    // return this.solvePrimary() || this.solveUltimately()
-
-    return this.solveUltimately()
+    return this.solvePrimary() || this.solveUltimately()
   }
 
   solvePrimary() {
-    if (!this.emptyCells().length) { return true }
+    if (this.isSolved()) { return true }
 
-    var loop = false
+    const possibleCell = this.anyEmptyCell(1)
 
-    this.emptyCells().forEach((cell: number[]) => {
-      const [x, y] = cell
+    if (possibleCell.length) {
+      const [x, y] = possibleCell
       const allowedNumbers = this.allowedNumbers(x, y)
 
-      if (allowedNumbers.length === 1) {
-        this.set(x, y, allowedNumbers[0])
-        loop = true
-      }
-    })
+      this.set(x, y, allowedNumbers[0])
+      if (this.solvePrimary()) { return true }
+    }
 
-    if (loop) { this.solvePrimary() }
+    return false
   }
 
   solveUltimately() {
-    if (!this.emptyCells().length) { return true }
+    if (this.isSolved()) { return true }
 
-    let [x, y] = this.emptyCells()[0]
+    let [x, y] = this.anyEmptyCell()
     var allowedNumbers = this.allowedNumbers(x, y)
 
     while (allowedNumbers.length > 0) {
@@ -136,7 +150,7 @@ export default class Sudoku {
       this.set(x, y, value)
 
       try {
-        if (this.solve()) { return true }
+        if (this.solveUltimately()) { return true }
       } catch(err) {
         // Nothing
       }
