@@ -1,6 +1,9 @@
 {
   "name": "sudoku-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "description": "Sodoku game with React and Typescript.",
+  "repository": "https://github.com/cenxky/sudoku-react",
+  "author": "Charles Koyeung",
   "private": false,
   "homepage": "https://cenxky.github.io/sudoku-react",
   "license": "MIT",
