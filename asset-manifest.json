@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/sudoku-react/static/css/main.73dbcd06.chunk.css",
-    "main.js": "/sudoku-react/static/js/main.de22ef5e.chunk.js",
-    "main.js.map": "/sudoku-react/static/js/main.de22ef5e.chunk.js.map",
+    "main.css": "/sudoku-react/static/css/main.2d57d91f.chunk.css",
+    "main.js": "/sudoku-react/static/js/main.b36d6668.chunk.js",
+    "main.js.map": "/sudoku-react/static/js/main.b36d6668.chunk.js.map",
     "runtime~main.js": "/sudoku-react/static/js/runtime~main.e1ff4c15.js",
     "runtime~main.js.map": "/sudoku-react/static/js/runtime~main.e1ff4c15.js.map",
     "static/css/2.cb759328.chunk.css": "/sudoku-react/static/css/2.cb759328.chunk.css",
-    "static/js/2.6007f7e2.chunk.js": "/sudoku-react/static/js/2.6007f7e2.chunk.js",
-    "static/js/2.6007f7e2.chunk.js.map": "/sudoku-react/static/js/2.6007f7e2.chunk.js.map",
+    "static/js/2.c8535f9c.chunk.js": "/sudoku-react/static/js/2.c8535f9c.chunk.js",
+    "static/js/2.c8535f9c.chunk.js.map": "/sudoku-react/static/js/2.c8535f9c.chunk.js.map",
     "index.html": "/sudoku-react/index.html",
-    "precache-manifest.c2bd4005d8c143840752a4a95fe57ca5.js": "/sudoku-react/precache-manifest.c2bd4005d8c143840752a4a95fe57ca5.js",
+    "precache-manifest.fc0e56810df0b3995aa3666d3b960d12.js": "/sudoku-react/precache-manifest.fc0e56810df0b3995aa3666d3b960d12.js",
     "service-worker.js": "/sudoku-react/service-worker.js",
     "static/css/2.cb759328.chunk.css.map": "/sudoku-react/static/css/2.cb759328.chunk.css.map",
-    "static/css/main.73dbcd06.chunk.css.map": "/sudoku-react/static/css/main.73dbcd06.chunk.css.map"
+    "static/css/main.2d57d91f.chunk.css.map": "/sudoku-react/static/css/main.2d57d91f.chunk.css.map"
   }
 }
