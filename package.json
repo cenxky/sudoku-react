@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "homepage": "https://cenxky.github.io/sudoku-react",
+  "license": "MIT",
   "dependencies": {
     "@types/classnames": "^2.2.9",
     "@types/jest": "24.0.15",

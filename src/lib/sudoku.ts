@@ -35,7 +35,7 @@ export default class Sudoku {
       }
     }
 
-    return this.grid[y][x] = value
+    return (this.grid[y][x] = value)
   }
 
   row(y: number): number[] {
@@ -77,9 +77,9 @@ export default class Sudoku {
     if (numbersInBlock.length > 1) {
       const numbersInRow = this.allowedNumbersInRow(y)
       const numbersInColumn = this.allowedNumbersInColumn(x)
-      return numbersInBlock.filter(num => (
-        numbersInRow.includes(num) && numbersInColumn.includes(num)
-      ))
+      return numbersInBlock.filter(
+        num => numbersInRow.includes(num) && numbersInColumn.includes(num)
+      )
     } else {
       return numbersInBlock
     }
@@ -116,31 +116,17 @@ export default class Sudoku {
   }
 
   isSolved() {
-    return !this.anyEmptyCell().length
+    return this.grid.every((row, y) => row.every((num, x) => num))
   }
 
   solve() {
-    return this.solvePrimary() || this.solveUltimately()
-  }
-
-  solvePrimary() {
-    if (this.isSolved()) { return true }
-
-    const possibleCell = this.anyEmptyCell(1)
-
-    if (possibleCell.length) {
-      const [x, y] = possibleCell
-      const allowedNumbers = this.allowedNumbers(x, y)
-
-      this.set(x, y, allowedNumbers[0])
-      if (this.solvePrimary()) { return true }
-    }
-
-    return false
+    return this.solveUltimately()
   }
 
   solveUltimately() {
-    if (this.isSolved()) { return true }
+    if (this.isSolved()) {
+      return true
+    }
 
     let [x, y] = this.anyEmptyCell()
     var allowedNumbers = this.allowedNumbers(x, y)
@@ -150,8 +136,10 @@ export default class Sudoku {
       this.set(x, y, value)
 
       try {
-        if (this.solveUltimately()) { return true }
-      } catch(err) {
+        if (this.solveUltimately()) {
+          return true
+        }
+      } catch (err) {
         // Nothing
       }
 

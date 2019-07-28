@@ -41,14 +41,15 @@
   margin: 20px auto;
   border-collapse: collapse;
   border: 3px solid black;
-  td, th {
+  td,
+  th {
     border: 1px solid #cad8ef;
     width: 60px;
     height: 60px;
     overflow: hidden;
     input {
-      padding: 0 15px;
-      width: 60px;
+      padding: 0 10px;
+      width: 50px;
       height: 100%;
       border: 0;
       outline: 0;
@@ -65,9 +66,20 @@
   td.solved {
     color: #467fcf;
   }
+  .sudoku-tips {
+    display: flex;
+    flex-wrap: wrap;
+    cursor: text;
+    span {
+      display: block;
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 .sudoku-actions {
   display: flex;
   justify-content: center;
+  align-items: center;
 }

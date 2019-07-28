@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import cx from "classnames"
 import Sudoku from "./lib/sudoku"
 
@@ -34,15 +34,42 @@ const sudoku = new Sudoku([
 type GridDataType = Array<number[]>
 
 export default function App() {
+  const inputRefs = useRef<{ [index: string]: HTMLInputElement | null }>({})
+
   const [gridData, setGridData] = useState<GridDataType>(sudoku.grid)
   const [solvedCells, setSolvedCells] = useState<GridDataType>([])
   const [solving, setSolving] = useState<boolean>(false)
+  const [showTips, setShowTips] = useState<boolean>(false)
+  const [editingCell, setEditingCell] = useState<string | null>()
 
   useEffect(() => {
     if (solving) {
       setTimeout(solveSudoku, 300)
     }
   }, [solving])
+
+  useEffect(() => {
+    if (editingCell) {
+      if (inputRefs.current) {
+        const inputRef = inputRefs.current[editingCell]
+        inputRef && inputRef.focus()
+      }
+    }
+  }, [editingCell])
+
+  useEffect(() => {
+    const listener = (event: any) => {
+      if (!event.target.closest(".sudoku-tips")) {
+        setEditingCell(null)
+      }
+    }
+
+    document.addEventListener("click", listener)
+
+    return () => {
+      document.removeEventListener("click", listener)
+    }
+  }, [])
 
   const setValue = (x: number, y: number, value: string) => {
     const parsedValue = parseInt(value)
@@ -85,6 +112,7 @@ export default function App() {
     sudoku.reset()
     setSolvedCells([])
     setGridData([...sudoku.grid])
+    setShowTips(false)
   }
 
   return (
@@ -110,13 +138,28 @@ export default function App() {
                             arr => arr.join() === [x, y].join()
                           )
                         })}
+                        onClick={() => setEditingCell([x, y].join())}
                       >
-                        <input
-                          type="text"
-                          value={value || ""}
-                          onChange={e => setValue(x, y, e.target.value)}
-                          readOnly={solving}
-                        />
+                        {showTips && !value && editingCell !== [x, y].join() ? (
+                          <div className="sudoku-tips">
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+                              <span key={num}>
+                                {sudoku.allowedNumbers(x, y).includes(num) &&
+                                  num}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <input
+                            type="text"
+                            value={value || ""}
+                            onChange={e => setValue(x, y, e.target.value)}
+                            readOnly={solving}
+                            ref={input =>
+                              (inputRefs.current[[x, y].join()] = input)
+                            }
+                          />
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -132,6 +175,9 @@ export default function App() {
                   loading={solving}
                 >
                   {solving ? "Solving" : "Solve Now!"}
+                </Button>
+                <Button size="large" onClick={() => setShowTips(!showTips)}>
+                  {showTips ? "Hide Tips" : "Show Tips"}
                 </Button>
                 <Button size="large" onClick={resetSudoku} disabled={solving}>
                   Clear All
