@@ -12,6 +12,45 @@ export default class Sudoku {
     this.grid = this.defaultGrid()
   }
 
+  generate(): void {
+    this.reset()
+
+    const rand = (min: number, max: number) =>
+      Math.floor(Math.random() * (max - min + 1)) + min
+    let baseNumbers = 17
+
+    while (baseNumbers > 0) {
+      const fillX = rand(0, 8)
+      const fillY = rand(0, 8)
+      const fillValue = rand(0, 8) + 1
+
+      if (!this.get(fillX, fillY)) {
+        try {
+          this.set(fillX, fillY, fillValue)
+          baseNumbers--
+        } catch (err) {
+          //Nothing
+        }
+      }
+    }
+
+    if (!this.solve()) {
+      return this.generate()
+    }
+
+    let digNumbers = 81 - rand(17, 40)
+
+    while (digNumbers > 0) {
+      const digX = rand(0, 8)
+      const digY = rand(0, 8)
+
+      if (this.get(digX, digY) && this.allowedNumbers(digX, digY).length < 7) {
+        this.set(digX, digY, 0)
+        digNumbers--
+      }
+    }
+  }
+
   defaultGrid() {
     return [...Array(SIZE)].map(x => [...Array(SIZE).fill(0)])
   }

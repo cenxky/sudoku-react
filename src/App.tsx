@@ -6,18 +6,20 @@ import "./App.scss"
 import "antd/dist/antd.css"
 import { Layout, Button, Modal, message } from "antd"
 
-// const sudoku = new Sudoku()
-const sudoku = new Sudoku([
-  [4, 0, 0, 0, 0, 0, 8, 0, 5],
-  [0, 3, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 7, 0, 0, 0, 0, 0],
-  [0, 2, 0, 0, 0, 0, 0, 6, 0],
-  [0, 0, 0, 0, 8, 0, 4, 0, 0],
-  [0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 6, 0, 3, 0, 7, 0],
-  [5, 0, 0, 2, 0, 0, 0, 0, 0],
-  [1, 0, 4, 0, 0, 0, 0, 0, 0]
-])
+const sudoku = new Sudoku()
+sudoku.generate()
+
+// const sudoku = new Sudoku([
+//   [4, 0, 0, 0, 0, 0, 8, 0, 5],
+//   [0, 3, 0, 0, 0, 0, 0, 0, 0],
+//   [0, 0, 0, 7, 0, 0, 0, 0, 0],
+//   [0, 2, 0, 0, 0, 0, 0, 6, 0],
+//   [0, 0, 0, 0, 8, 0, 4, 0, 0],
+//   [0, 0, 0, 0, 1, 0, 0, 0, 0],
+//   [0, 0, 0, 6, 0, 3, 0, 7, 0],
+//   [5, 0, 0, 2, 0, 0, 0, 0, 0],
+//   [1, 0, 4, 0, 0, 0, 0, 0, 0]
+// ])
 
 // const sudoku = new Sudoku([
 //   [0, 3, 0, 0, 0, 0, 0, 0, 1],
@@ -108,6 +110,12 @@ export default function App() {
     }
   }
 
+  const generateSudoku = () => {
+    resetSudoku()
+    sudoku.generate()
+    setGridData([...sudoku.grid])
+  }
+
   const resetSudoku = () => {
     sudoku.reset()
     setSolvedCells([])
@@ -175,6 +183,13 @@ export default function App() {
                   loading={solving}
                 >
                   {solving ? "Solving" : "Solve Now!"}
+                </Button>
+                <Button
+                  size="large"
+                  onClick={generateSudoku}
+                  disabled={solving}
+                >
+                  Regenerate Sudoku
                 </Button>
                 <Button size="large" onClick={() => setShowTips(!showTips)}>
                   {showTips ? "Hide Tips" : "Show Tips"}
