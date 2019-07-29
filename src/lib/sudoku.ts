@@ -17,20 +17,18 @@ export default class Sudoku {
 
     const rand = (min: number, max: number) =>
       Math.floor(Math.random() * (max - min + 1)) + min
+
     let baseNumbers = 17
 
     while (baseNumbers > 0) {
       const fillX = rand(0, 8)
       const fillY = rand(0, 8)
-      const fillValue = rand(0, 8) + 1
+      const allowedNumbers = this.allowedNumbers(fillX, fillY)
 
-      if (!this.get(fillX, fillY)) {
-        try {
-          this.set(fillX, fillY, fillValue)
-          baseNumbers--
-        } catch (err) {
-          //Nothing
-        }
+      if (allowedNumbers.length > 3) {
+        const randomIndex = rand(0, allowedNumbers.length - 1)
+        this.set(fillX, fillY, allowedNumbers[randomIndex])
+        baseNumbers--
       }
     }
 
