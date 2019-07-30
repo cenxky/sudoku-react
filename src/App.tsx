@@ -2,36 +2,16 @@ import React, { useState, useEffect, useRef } from "react"
 import cx from "classnames"
 import Sudoku from "./lib/sudoku"
 
+/* eslint import/no-webpack-loader-syntax: off */
+import SudokuSolver from "worker-loader!./workers/solve-sudoku-worker"
+import SudokuGenerator from "worker-loader!./workers/generate-sudoku-worker"
+
 import "./App.scss"
 import "antd/dist/antd.css"
 import { Layout, Button, Modal, message } from "antd"
 
 const sudoku = new Sudoku()
-sudoku.generate()
-
-// const sudoku = new Sudoku([
-//   [4, 0, 0, 0, 0, 0, 8, 0, 5],
-//   [0, 3, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 7, 0, 0, 0, 0, 0],
-//   [0, 2, 0, 0, 0, 0, 0, 6, 0],
-//   [0, 0, 0, 0, 8, 0, 4, 0, 0],
-//   [0, 0, 0, 0, 1, 0, 0, 0, 0],
-//   [0, 0, 0, 6, 0, 3, 0, 7, 0],
-//   [5, 0, 0, 2, 0, 0, 0, 0, 0],
-//   [1, 0, 4, 0, 0, 0, 0, 0, 0]
-// ])
-
-// const sudoku = new Sudoku([
-//   [0, 3, 0, 0, 0, 0, 0, 0, 1],
-//   [0, 0, 0, 5, 0, 0, 0, 0, 4],
-//   [0, 0, 5, 0, 0, 7, 0, 0, 0],
-//   [0, 0, 0, 0, 3, 0, 0, 0, 9],
-//   [6, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [7, 0, 0, 0, 0, 0, 0, 4, 0],
-//   [0, 9, 0, 0, 4, 0, 0, 0, 0],
-//   [0, 5, 0, 0, 0, 0, 7, 0, 0],
-//   [0, 0, 0, 0, 0, 8, 0, 6, 0]
-// ])
+const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 type GridDataType = Array<number[]>
 
@@ -41,14 +21,45 @@ export default function App() {
   const [gridData, setGridData] = useState<GridDataType>(sudoku.grid)
   const [solvedCells, setSolvedCells] = useState<GridDataType>([])
   const [solving, setSolving] = useState<boolean>(false)
+  const [generating, setGenerating] = useState<boolean>(true)
   const [showTips, setShowTips] = useState<boolean>(false)
   const [editingCell, setEditingCell] = useState<string | null>()
 
   useEffect(() => {
     if (solving) {
-      setTimeout(solveSudoku, 300)
+      const sudokuSolver: Worker = new SudokuSolver()
+      sudokuSolver.addEventListener("message", (event: any) => {
+        setSolving(false)
+
+        if (event.data.success) {
+          setGridData(event.data.gridData)
+        } else {
+          Modal.error({
+            title: "Sudoku",
+            content: "Sorry, this sudoku has no solution!"
+          })
+        }
+      })
+
+      setSolvedCells(sudoku.emptyCells())
+      sudokuSolver.postMessage({ gridData: gridData })
     }
-  }, [solving])
+  }, [solving, gridData])
+
+  useEffect(() => {
+    if (generating) {
+      const sudokuGenerator: Worker = new SudokuGenerator()
+      sudokuGenerator.addEventListener("message", (event: any) => {
+        sudoku.grid = event.data.gridData
+        setGenerating(false)
+        setGridData([...sudoku.grid])
+      })
+
+      setShowTips(false)
+      setSolvedCells([])
+      sudokuGenerator.postMessage({})
+    }
+  }, [generating, gridData])
 
   useEffect(() => {
     if (editingCell) {
@@ -91,31 +102,6 @@ export default function App() {
     setGridData([...sudoku.grid])
   }
 
-  const solveSudoku = () => {
-    setSolvedCells(sudoku.emptyCells())
-
-    console.time("Sudoku runs")
-    const sudokuSolvedStatus = sudoku.solve()
-    console.timeEnd("Sudoku runs")
-
-    setSolving(false)
-
-    if (sudokuSolvedStatus) {
-      setGridData([...sudoku.grid])
-    } else {
-      Modal.error({
-        title: "Sudoku",
-        content: "Sorry, this sudoku has no solution!"
-      })
-    }
-  }
-
-  const generateSudoku = () => {
-    resetSudoku()
-    sudoku.generate()
-    setGridData([...sudoku.grid])
-  }
-
   const resetSudoku = () => {
     sudoku.reset()
     setSolvedCells([])
@@ -150,7 +136,7 @@ export default function App() {
                       >
                         {showTips && !value && editingCell !== [x, y].join() ? (
                           <div className="sudoku-tips">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+                            {NUMBERS.map(num => (
                               <span key={num}>
                                 {sudoku.allowedNumbers(x, y).includes(num) &&
                                   num}
@@ -162,7 +148,7 @@ export default function App() {
                             type="text"
                             value={value || ""}
                             onChange={e => setValue(x, y, e.target.value)}
-                            readOnly={solving}
+                            readOnly={generating || solving}
                             ref={input =>
                               (inputRefs.current[[x, y].join()] = input)
                             }
@@ -180,21 +166,27 @@ export default function App() {
                   type="primary"
                   size="large"
                   onClick={() => setSolving(true)}
+                  disabled={generating || solving}
                   loading={solving}
                 >
                   {solving ? "Solving" : "Solve Now!"}
                 </Button>
                 <Button
                   size="large"
-                  onClick={generateSudoku}
-                  disabled={solving}
+                  onClick={() => setGenerating(true)}
+                  disabled={generating || solving}
+                  loading={generating}
                 >
                   Regenerate Sudoku
                 </Button>
                 <Button size="large" onClick={() => setShowTips(!showTips)}>
                   {showTips ? "Hide Tips" : "Show Tips"}
                 </Button>
-                <Button size="large" onClick={resetSudoku} disabled={solving}>
+                <Button
+                  size="large"
+                  onClick={resetSudoku}
+                  disabled={generating || solving}
+                >
                   Clear All
                 </Button>
               </Button.Group>
