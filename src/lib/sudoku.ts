@@ -59,6 +59,10 @@ export default class Sudoku {
 
   set(x: number, y: number, value: number): Error | number {
     if (value) {
+      if (this.get(x, y) === value) {
+        return value
+      }
+
       if (!this.allowedNumbersInRow(y).includes(value)) {
         throw new Error(`${value} is not allowed in the row ${y}`)
       }
