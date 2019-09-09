@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/sudoku-react/static/css/main.2d57d91f.chunk.css",
-    "main.js": "/sudoku-react/static/js/main.71f5a1b8.chunk.js",
-    "main.js.map": "/sudoku-react/static/js/main.71f5a1b8.chunk.js.map",
+    "main.css": "/sudoku-react/static/css/main.0aaf0d2b.chunk.css",
+    "main.js": "/sudoku-react/static/js/main.6f0f5456.chunk.js",
+    "main.js.map": "/sudoku-react/static/js/main.6f0f5456.chunk.js.map",
     "runtime~main.js": "/sudoku-react/static/js/runtime~main.0d969822.js",
     "runtime~main.js.map": "/sudoku-react/static/js/runtime~main.0d969822.js.map",
     "static/css/2.cb759328.chunk.css": "/sudoku-react/static/css/2.cb759328.chunk.css",
-    "static/js/2.a5642ca0.chunk.js": "/sudoku-react/static/js/2.a5642ca0.chunk.js",
-    "static/js/2.a5642ca0.chunk.js.map": "/sudoku-react/static/js/2.a5642ca0.chunk.js.map",
+    "static/js/2.540bf5bd.chunk.js": "/sudoku-react/static/js/2.540bf5bd.chunk.js",
+    "static/js/2.540bf5bd.chunk.js.map": "/sudoku-react/static/js/2.540bf5bd.chunk.js.map",
     "6551e81ecb79f4a15906.worker.js": "/sudoku-react/6551e81ecb79f4a15906.worker.js",
     "6551e81ecb79f4a15906.worker.js.map": "/sudoku-react/6551e81ecb79f4a15906.worker.js.map",
     "d24da5ef04194cac1ea0.worker.js": "/sudoku-react/d24da5ef04194cac1ea0.worker.js",
     "d24da5ef04194cac1ea0.worker.js.map": "/sudoku-react/d24da5ef04194cac1ea0.worker.js.map",
     "index.html": "/sudoku-react/index.html",
-    "precache-manifest.e78ad2cc37678fbd4af5a659bd79ba6f.js": "/sudoku-react/precache-manifest.e78ad2cc37678fbd4af5a659bd79ba6f.js",
+    "precache-manifest.7d24464593c62aca72fe4999d70bd8dd.js": "/sudoku-react/precache-manifest.7d24464593c62aca72fe4999d70bd8dd.js",
     "service-worker.js": "/sudoku-react/service-worker.js",
     "static/css/2.cb759328.chunk.css.map": "/sudoku-react/static/css/2.cb759328.chunk.css.map",
-    "static/css/main.2d57d91f.chunk.css.map": "/sudoku-react/static/css/main.2d57d91f.chunk.css.map"
+    "static/css/main.0aaf0d2b.chunk.css.map": "/sudoku-react/static/css/main.0aaf0d2b.chunk.css.map"
   }
 }
