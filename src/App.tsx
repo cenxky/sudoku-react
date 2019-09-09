@@ -8,7 +8,7 @@ import SudokuGenerator from "worker-loader!./workers/generate-sudoku-worker"
 
 import "./App.scss"
 import "antd/dist/antd.css"
-import { Layout, Button, Modal, message } from "antd"
+import { Button, Modal, message } from "antd"
 
 const sudoku = new Sudoku()
 const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -110,30 +110,30 @@ export default function App() {
   }
 
   return (
-    <div className="App">
-      <Layout>
-        <Layout.Content>
-          <div className="sudoku-container">
-            <table className="sudoku-table">
-              <tbody>
-                {gridData.map((row, y) => (
-                  <tr
-                    key={y}
-                    className={cx({
-                      "block-boder": (y + 1) % 3 === 0
-                    })}
-                  >
-                    {row.map((value, x) => (
-                      <td
-                        key={x}
-                        className={cx({
-                          "block-boder": (x + 1) % 3 === 0,
-                          solved: solvedCells.some(
-                            arr => arr.join() === [x, y].join()
-                          )
-                        })}
-                        onClick={() => setEditingCell([x, y].join())}
-                      >
+    <div className="app">
+      <div className="app-sudoku">
+        <div className="sudoku-container">
+          <table className="sudoku-table">
+            <tbody>
+              {gridData.map((row, y) => (
+                <tr
+                  key={y}
+                  className={cx({
+                    "block-boder": (y + 1) % 3 === 0
+                  })}
+                >
+                  {row.map((value, x) => (
+                    <td
+                      key={x}
+                      className={cx({
+                        "block-boder": (x + 1) % 3 === 0,
+                        solved: solvedCells.some(
+                          arr => arr.join() === [x, y].join()
+                        )
+                      })}
+                      onClick={() => setEditingCell([x, y].join())}
+                    >
+                      <div className="cell">
                         {showTips && !value && editingCell !== [x, y].join() ? (
                           <div className="sudoku-tips">
                             {NUMBERS.map(num => (
@@ -154,46 +154,46 @@ export default function App() {
                             }
                           />
                         )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="sudoku-actions">
-              <Button.Group>
-                <Button
-                  type="primary"
-                  size="large"
-                  onClick={() => setSolving(true)}
-                  disabled={generating || solving}
-                  loading={solving}
-                >
-                  {solving ? "Solving" : "Solve Now!"}
-                </Button>
-                <Button
-                  size="large"
-                  onClick={() => setGenerating(true)}
-                  disabled={generating || solving}
-                  loading={generating}
-                >
-                  Regenerate Sudoku
-                </Button>
-                <Button size="large" onClick={() => setShowTips(!showTips)}>
-                  {showTips ? "Hide Tips" : "Show Tips"}
-                </Button>
-                <Button
-                  size="large"
-                  onClick={resetSudoku}
-                  disabled={generating || solving}
-                >
-                  Clear All
-                </Button>
-              </Button.Group>
-            </div>
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="sudoku-actions">
+            <Button.Group>
+              <Button
+                type="primary"
+                size="large"
+                onClick={() => setSolving(true)}
+                disabled={generating || solving}
+                loading={solving}
+              >
+                {solving ? "Solving" : "Solve Now!"}
+              </Button>
+              <Button
+                size="large"
+                onClick={() => setGenerating(true)}
+                disabled={generating || solving}
+                loading={generating}
+              >
+                Regenerate Sudoku
+              </Button>
+              <Button size="large" onClick={() => setShowTips(!showTips)}>
+                {showTips ? "Hide Tips" : "Show Tips"}
+              </Button>
+              <Button
+                size="large"
+                onClick={resetSudoku}
+                disabled={generating || solving}
+              >
+                Clear All
+              </Button>
+            </Button.Group>
           </div>
-        </Layout.Content>
-      </Layout>
+        </div>
+      </div>
     </div>
   )
 }

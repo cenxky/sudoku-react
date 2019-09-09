@@ -1,52 +1,35 @@
-.App {
+.app {
   text-align: center;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-sudoku {
   display: flex;
-  flex-direction: column;
+  height: 100vh;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .sudoku-container {
-  padding-top: 40px;
-  height: 100vh;
+  width: 95%;
+  max-width: 600px;
 }
 
 .sudoku-table {
-  margin: 20px auto;
+  width: 90%;
+  margin: 0 auto;
   border-collapse: collapse;
+  border-radius: 1em;
   border: 3px solid black;
+  background-color: #f5f7fb;
   td,
   th {
+    width: 11.11%;
+    position: relative;
     border: 1px solid #cad8ef;
-    width: 60px;
-    height: 60px;
     overflow: hidden;
+    color: #333;
     input {
       padding: 0 10px;
       width: 50px;
@@ -55,6 +38,25 @@
       outline: 0;
       font-size: 40px;
       background: inherit;
+    }
+    &:after {
+      content: "";
+      display: block;
+      margin-top: 100%;
+    }
+    &.active .cell {
+      border: 1px solid black;
+    }
+    .cell {
+      font-size: 2em;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
   tr.block-boder:not(:last-child) {
@@ -70,6 +72,7 @@
     display: flex;
     flex-wrap: wrap;
     cursor: text;
+    font-size: 1rem;
     span {
       display: block;
       width: 18px;
@@ -78,8 +81,28 @@
   }
 }
 
+@media only screen and (max-width: 500px) {
+  .sudoku-table {
+    td,
+    th {
+      input {
+        font-size: 30px;
+        padding-left: 15px;
+      }
+    }
+    .sudoku-tips {
+      font-size: 8px;
+      span {
+        width: 11px;
+        height: 11px;
+      }
+    }
+  }
+}
+
 .sudoku-actions {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
 }
