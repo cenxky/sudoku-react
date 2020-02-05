@@ -10,8 +10,9 @@ import "./App.scss"
 import "antd/dist/antd.css"
 import { Button, Modal, message } from "antd"
 
-const sudoku = new Sudoku()
-const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const mode = "9"
+const sudoku = new Sudoku({ mode })
+const NUMBERS = sudoku.numbers
 
 type GridDataType = Array<number[]>
 
@@ -42,7 +43,7 @@ export default function App() {
       })
 
       setSolvedCells(sudoku.emptyCells())
-      sudokuSolver.postMessage({ gridData: gridData })
+      sudokuSolver.postMessage({ gridData, mode })
     }
   }, [solving, gridData])
 
@@ -57,7 +58,7 @@ export default function App() {
 
       setShowTips(false)
       setSolvedCells([])
-      sudokuGenerator.postMessage({})
+      sudokuGenerator.postMessage({ mode })
     }
   }, [generating, gridData])
 
@@ -87,7 +88,7 @@ export default function App() {
   const setValue = (x: number, y: number, value: string) => {
     const parsedValue = parseInt(value)
 
-    if (value.length && parsedValue > 9) {
+    if (value.length && parsedValue > sudoku.blockSize) {
       message.info(`Only 1-9 numbers are allowed to input here!`)
       return false
     }
@@ -119,14 +120,14 @@ export default function App() {
                 <tr
                   key={y}
                   className={cx({
-                    "block-boder": (y + 1) % 3 === 0
+                    "block-boder": (y + 1) % sudoku.mode.height === 0
                   })}
                 >
                   {row.map((value, x) => (
                     <td
                       key={x}
                       className={cx({
-                        "block-boder": (x + 1) % 3 === 0,
+                        "block-boder": (x + 1) % sudoku.mode.width === 0,
                         solved: solvedCells.some(
                           arr => arr.join() === [x, y].join()
                         )

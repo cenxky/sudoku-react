@@ -1,11 +1,47 @@
-const SIZE = 9
-const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+type ModeType = {
+  width: number
+  height: number
+  lowerSize: number
+  higherSize: number
+}
+
+type ModesType = {
+  [index: string]: ModeType
+}
+
+type SudokuOptionsType = {
+  grid?: Array<number[]>
+  mode?: "4" | "6" | "8" | "9"
+}
+
+const MODES: ModesType = {
+  "4": { width: 2, height: 2, lowerSize: 4, higherSize: 8 },
+  "6": { width: 3, height: 2, lowerSize: 9, higherSize: 18 },
+  "8": { width: 2, height: 4, lowerSize: 18, higherSize: 36 },
+  "9": { width: 3, height: 3, lowerSize: 17, higherSize: 40 }
+}
+
+const DEFAULT_MODE = "9"
 
 export default class Sudoku {
   grid: Array<number[]>
+  mode: ModeType
+  blockSize: number
+  numbers: number[]
 
-  constructor(grid?: Array<number[]>) {
-    this.grid = grid || this.defaultGrid()
+  constructor(options: SudokuOptionsType = {}) {
+    let modeKey
+
+    if (options.grid) {
+      modeKey = options.grid.length.toString()
+    } else {
+      modeKey = options.mode || DEFAULT_MODE
+    }
+
+    this.mode = MODES[modeKey]
+    this.blockSize = this.mode.width * this.mode.height
+    this.numbers = [...Array(this.blockSize)].map((_, i) => i + 1)
+    this.grid = options.grid || this.defaultGrid()
   }
 
   reset() {
@@ -18,14 +54,20 @@ export default class Sudoku {
     const rand = (min: number, max: number) =>
       Math.floor(Math.random() * (max - min + 1)) + min
 
-    let baseNumbers = 17
+    const randInSizeRange = () => rand(0, this.blockSize - 1)
+    const { lowerSize, higherSize } = this.mode
+    const minAllowedSize = Math.floor(this.blockSize / 3)
+    const maxAllowedSize = this.blockSize - 2
+    const gridCellSize = this.blockSize ** 2
+
+    let baseNumbers = lowerSize
 
     while (baseNumbers > 0) {
-      const fillX = rand(0, 8)
-      const fillY = rand(0, 8)
+      const fillX = randInSizeRange()
+      const fillY = randInSizeRange()
       const allowedNumbers = this.allowedNumbers(fillX, fillY)
 
-      if (allowedNumbers.length > 3) {
+      if (allowedNumbers.length > minAllowedSize) {
         const randomIndex = rand(0, allowedNumbers.length - 1)
         this.set(fillX, fillY, allowedNumbers[randomIndex])
         baseNumbers--
@@ -36,13 +78,16 @@ export default class Sudoku {
       return this.generate()
     }
 
-    let digNumbers = 81 - rand(17, 40)
+    let digNumbers = gridCellSize - rand(lowerSize, higherSize)
 
     while (digNumbers > 0) {
-      const digX = rand(0, 8)
-      const digY = rand(0, 8)
+      const digX = randInSizeRange()
+      const digY = randInSizeRange()
 
-      if (this.get(digX, digY) && this.allowedNumbers(digX, digY).length < 7) {
+      if (
+        this.get(digX, digY) &&
+        this.allowedNumbers(digX, digY).length < maxAllowedSize
+      ) {
         this.set(digX, digY, 0)
         digNumbers--
       }
@@ -50,7 +95,9 @@ export default class Sudoku {
   }
 
   defaultGrid() {
-    return [...Array(SIZE)].map(x => [...Array(SIZE).fill(0)])
+    return [...Array(this.blockSize)].map(x => [
+      ...Array(this.blockSize).fill(0)
+    ])
   }
 
   get(x: number, y: number): number {
@@ -89,27 +136,28 @@ export default class Sudoku {
 
   allowedNumbersInRow(y: number) {
     const row = this.row(y)
-    return NUMBERS.filter(num => !row.includes(num))
+    return this.numbers.filter(num => !row.includes(num))
   }
 
   allowedNumbersInColumn(x: number) {
     const column = this.column(x)
-    return NUMBERS.filter(num => !column.includes(num))
+    return this.numbers.filter(num => !column.includes(num))
   }
 
   allowedNumbersInBlock(x: number, y: number) {
-    const bx = Math.floor(x / 3) * 3
-    const by = Math.floor(y / 3) * 3
+    const { width, height } = this.mode
+    const bx = Math.floor(x / width) * width
+    const by = Math.floor(y / height) * height
 
     let numbersInBlock: number[] = []
 
-    for (var i = 0; i < 3; i++) {
-      for (var j = 0; j < 3; j++) {
+    for (var i = 0; i < width; i++) {
+      for (var j = 0; j < height; j++) {
         numbersInBlock.push(this.get(bx + i, by + j))
       }
     }
 
-    return NUMBERS.filter(num => !numbersInBlock.includes(num))
+    return this.numbers.filter(num => !numbersInBlock.includes(num))
   }
 
   allowedNumbers(x: number, y: number) {
@@ -138,7 +186,7 @@ export default class Sudoku {
     return cells
   }
 
-  anyEmptyCell(allowedNumbersLength = SIZE + 1) {
+  anyEmptyCell(allowedNumbersLength = this.blockSize + 1) {
     let cell: number[] = []
 
     this.emptyCells().some((emptyCell: number[]) => {

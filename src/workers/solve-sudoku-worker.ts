@@ -3,8 +3,8 @@ import Sudoku from "../lib/sudoku"
 declare var self: any
 
 self.addEventListener("message", (event: any) => {
-  const gridData = event.data.gridData
-  const sudoku = new Sudoku(gridData)
+  const { gridData, mode } = event.data
+  const sudoku = new Sudoku({ mode: mode, grid: gridData })
 
   console.time("Sudoku runs")
   const sudokuSolvedStatus = sudoku.solve()
