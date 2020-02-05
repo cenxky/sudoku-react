@@ -4,6 +4,9 @@
   "description": "Sodoku game with React and Typescript.",
   "repository": "https://github.com/cenxky/sudoku-react",
   "author": "Charles Koyeung",
+  "main": "build/lib/sudoku.js",
+  "module": "build/lib/sudoku.js",
+  "types": "build/lib/sudoku.d.ts",
   "private": false,
   "homepage": "https://cenxky.github.io/sudoku-react",
   "license": "MIT",
@@ -20,14 +23,15 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "typescript": "3.5.3"
+    "typescript": "^3.7.5"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "deploy": "gh-pages -d build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ts": "tsc -b tsconfig.json"
   },
   "eslintConfig": {
     "extends": "react-app"
