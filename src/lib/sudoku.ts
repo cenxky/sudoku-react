@@ -23,6 +23,8 @@ const MODES: ModesType = {
 
 const DEFAULT_MODE = "9"
 
+let solveTimeout = new Date()
+
 export default class Sudoku {
   grid: Array<number[]>
   mode: ModeType
@@ -73,7 +75,7 @@ export default class Sudoku {
         baseNumbers--
       }
     }
-
+    solveTimeout = new Date()
     if (!this.solve()) {
       return this.generate()
     }
@@ -221,6 +223,9 @@ export default class Sudoku {
     var allowedNumbers = this.allowedNumbers(x, y)
 
     while (allowedNumbers.length > 0) {
+      if (new Date().getTime() - solveTimeout.getTime() > 50) {
+        return false
+      }
       let value = allowedNumbers.shift() as number
       this.set(x, y, value)
 
