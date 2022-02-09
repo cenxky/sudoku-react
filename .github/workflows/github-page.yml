@@ -16,8 +16,9 @@ jobs:
 
       - name: Install and Build 🔧 # 第二步，装node包，构建
         run: |
-          npm install
-          CI=false && npm run build  # 你自己项目的构建命令
+          npm install --global yarn
+          yarn install
+          CI=false && yarn build  # 你自己项目的构建命令
           cp build/index.html build/404.html # 防止404跳转github的404
 
       - name: Deploy 🚀 # 部署
