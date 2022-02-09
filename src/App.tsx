@@ -7,9 +7,10 @@ import SudokuSolver from "worker-loader!./workers/solve-sudoku-worker"
 import SudokuGenerator from "worker-loader!./workers/generate-sudoku-worker"
 
 import "./App.scss"
-import "antd/dist/antd.css"
+import "antd/dist/antd.min.css"
 import { Button, Modal, message } from "antd"
 
+// Sudoku basic config
 const mode = "9"
 const sudoku = new Sudoku({ mode })
 const NUMBERS = sudoku.numbers

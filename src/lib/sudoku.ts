@@ -17,7 +17,7 @@ type SudokuOptionsType = {
 const MODES: ModesType = {
   "4": { width: 2, height: 2, lowerSize: 4, higherSize: 8 },
   "6": { width: 3, height: 2, lowerSize: 9, higherSize: 18 },
-  "8": { width: 2, height: 4, lowerSize: 18, higherSize: 36 },
+  "8": { width: 4, height: 2, lowerSize: 18, higherSize: 36 },
   "9": { width: 3, height: 3, lowerSize: 17, higherSize: 40 }
 }
 
@@ -60,7 +60,7 @@ export default class Sudoku {
     const maxAllowedSize = this.blockSize - 2
     const gridCellSize = this.blockSize ** 2
 
-    let baseNumbers = lowerSize
+    let baseNumbers = this.blockSize
 
     while (baseNumbers > 0) {
       const fillX = randInSizeRange()
