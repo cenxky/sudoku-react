@@ -1,0 +1,29 @@
+name: Deploy page # action的名字，会显示在github Actions的All workflows下面
+
+on: # 触发条件
+  push: # push代码时
+    branches: # 触发push的分支
+      - master # 可以修改成你自己想构建的分支
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 跑脚本的机器
+    steps: # 步骤
+      - name: Checkout 🛎️ # 第一步 拉代码
+        uses: actions/checkout@v2 # 拉代码的插件
+        with:
+          persist-credentials: false
+
+      - name: Install and Build 🔧 # 第二步，装node包，构建
+        run: |
+          npm install
+          CI=false && npm run build  # 你自己项目的构建命令
+          cp build/index.html build/404.html # 防止404跳转github的404
+
+      - name: Deploy 🚀 # 部署
+        id: "deploy"
+        uses: JamesIves/github-pages-deploy-action@releases/v3 # 部署到github的静态页，会将打包后的文件推送至下面填写的分支，可以直接新开一个分支用来放打包后的文件
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages # 编译文件分支
+          FOLDER: build # 编译文件的文件夹
