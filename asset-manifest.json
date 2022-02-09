@@ -1,21 +1,27 @@
 {
   "files": {
-    "main.css": "/sudoku-react/static/css/main.80e4eff4.chunk.css",
-    "main.js": "/sudoku-react/static/js/main.6f0f5456.chunk.js",
-    "main.js.map": "/sudoku-react/static/js/main.6f0f5456.chunk.js.map",
-    "runtime~main.js": "/sudoku-react/static/js/runtime~main.0d969822.js",
-    "runtime~main.js.map": "/sudoku-react/static/js/runtime~main.0d969822.js.map",
-    "static/css/2.cb759328.chunk.css": "/sudoku-react/static/css/2.cb759328.chunk.css",
-    "static/js/2.540bf5bd.chunk.js": "/sudoku-react/static/js/2.540bf5bd.chunk.js",
-    "static/js/2.540bf5bd.chunk.js.map": "/sudoku-react/static/js/2.540bf5bd.chunk.js.map",
-    "6551e81ecb79f4a15906.worker.js": "/sudoku-react/6551e81ecb79f4a15906.worker.js",
-    "6551e81ecb79f4a15906.worker.js.map": "/sudoku-react/6551e81ecb79f4a15906.worker.js.map",
-    "d24da5ef04194cac1ea0.worker.js": "/sudoku-react/d24da5ef04194cac1ea0.worker.js",
-    "d24da5ef04194cac1ea0.worker.js.map": "/sudoku-react/d24da5ef04194cac1ea0.worker.js.map",
+    "main.css": "/sudoku-react/static/css/main.61a47b9f.chunk.css",
+    "main.js": "/sudoku-react/static/js/main.c24c0633.chunk.js",
+    "main.js.map": "/sudoku-react/static/js/main.c24c0633.chunk.js.map",
+    "runtime-main.js": "/sudoku-react/static/js/runtime-main.bd3e46a9.js",
+    "runtime-main.js.map": "/sudoku-react/static/js/runtime-main.bd3e46a9.js.map",
+    "static/css/2.b1c24b5a.chunk.css": "/sudoku-react/static/css/2.b1c24b5a.chunk.css",
+    "static/js/2.f921fc50.chunk.js": "/sudoku-react/static/js/2.f921fc50.chunk.js",
+    "static/js/2.f921fc50.chunk.js.map": "/sudoku-react/static/js/2.f921fc50.chunk.js.map",
+    "a2739df71d669ddaf4e6.worker.js": "/sudoku-react/a2739df71d669ddaf4e6.worker.js",
+    "a2739df71d669ddaf4e6.worker.js.map": "/sudoku-react/a2739df71d669ddaf4e6.worker.js.map",
+    "f6a8cc200d90b3824ac2.worker.js": "/sudoku-react/f6a8cc200d90b3824ac2.worker.js",
+    "f6a8cc200d90b3824ac2.worker.js.map": "/sudoku-react/f6a8cc200d90b3824ac2.worker.js.map",
     "index.html": "/sudoku-react/index.html",
-    "precache-manifest.3bbcc532375b9dff6ac0b0d41dac2b8e.js": "/sudoku-react/precache-manifest.3bbcc532375b9dff6ac0b0d41dac2b8e.js",
-    "service-worker.js": "/sudoku-react/service-worker.js",
-    "static/css/2.cb759328.chunk.css.map": "/sudoku-react/static/css/2.cb759328.chunk.css.map",
-    "static/css/main.80e4eff4.chunk.css.map": "/sudoku-react/static/css/main.80e4eff4.chunk.css.map"
-  }
+    "static/css/2.b1c24b5a.chunk.css.map": "/sudoku-react/static/css/2.b1c24b5a.chunk.css.map",
+    "static/css/main.61a47b9f.chunk.css.map": "/sudoku-react/static/css/main.61a47b9f.chunk.css.map",
+    "static/js/2.f921fc50.chunk.js.LICENSE.txt": "/sudoku-react/static/js/2.f921fc50.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bd3e46a9.js",
+    "static/css/2.b1c24b5a.chunk.css",
+    "static/js/2.f921fc50.chunk.js",
+    "static/css/main.61a47b9f.chunk.css",
+    "static/js/main.c24c0633.chunk.js"
+  ]
 }
